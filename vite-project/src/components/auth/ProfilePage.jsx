@@ -51,7 +51,7 @@ const ProfilePage = () => {
       return;
     }
     try {
-      const response = await fetch(`${profileURL}/api/auth/users/me`, {
+      const response = await fetch(`${profileURL}/api/profile/me`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
