@@ -22,6 +22,10 @@ import ProfilePage from './components/auth/ProfilePage'
 import TradingViewModal from './components/auth/TradingViewModal'
 import DataTable from './utils/table'
 
+// Environment variables
+const backendURL = import.meta.env.VITE_API_BASE_URL;
+const profileURL = import.meta.env.VITE_PROFILE_API_URL;
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -192,7 +196,7 @@ const AppContent = () => {
     if (!user) return false;
     
     try {
-      const response = await fetch('http://localhost:5000/api/profile/tradingview-credentials', {
+      const response = await fetch(`${profileURL}/api/auth/tradingview-credentials`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
@@ -213,7 +217,7 @@ const AppContent = () => {
   const saveTradingViewCredentials = async (credentials) => {
     setCredentialsLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/profile/tradingview-credentials', {
+      const response = await fetch(`${profileURL}/api/auth/tradingview-credentials`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -252,7 +256,7 @@ const AppContent = () => {
       };
 
       // Send to old Python backend with user's JWT for credential retrieval
-      const response = await fetch('http://localhost:8000/trigger-tradingview', {
+      const response = await fetch(`${backendURL}/trigger-tradingview`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -466,7 +470,7 @@ const AppContent = () => {
       console.log(pair[0]+ ':', pair[1]);
     }
     try {
-      const res = await fetch('http://localhost:8000/upload-and-process', {
+      const res = await fetch(`${backendURL}/upload-and-process`, {
         method: 'POST',
         body: formDataToSend
       });

@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
+// Environment variables
+const profileURL = import.meta.env.VITE_PROFILE_API_URL;
+
 const ProfilePage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -48,7 +51,7 @@ const ProfilePage = () => {
       return;
     }
     try {
-      const response = await fetch('http://localhost:5000/api/profile/me', {
+      const response = await fetch(`${profileURL}/api/auth/users/me`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
