@@ -26,7 +26,7 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch(`${profileURL}/api/auth/users`, {
+      const response = await fetch(`${profileURL}/api/admin/users`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
